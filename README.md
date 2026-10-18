@@ -9,9 +9,9 @@ Every plugin implements the same contract: [`spec/CONTRACT.md`](spec/CONTRACT.md
 | Platform | Folder | Status |
 |---|---|---|
 | WooCommerce | [`woocommerce/`](woocommerce/) | v0.1 |
-| PrestaShop | [`prestashop/`](prestashop/) | planned |
-| Magento 2 | [`magento2/`](magento2/) | planned |
-| OpenCart | [`opencart/`](opencart/) | planned |
+| PrestaShop | [`prestashop/`](prestashop/) | v0.1 |
+| Magento 2 | [`magento2/`](magento2/) | v0.1 |
+| OpenCart 4 | [`opencart/`](opencart/) | v0.1 |
 
 Shopify already ships an official MCP server.
 

@@ -1,0 +1,112 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-module" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <p>{{ text_intro }}</p>
+    <div class="card mb-3">
+      <div class="card-header"><i class="fa-solid fa-plug"></i> {{ text_connection }}</div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label" for="input-endpoint">{{ entry_endpoint }}</label>
+          <div class="col-sm-10">
+            <input type="text" id="input-endpoint" value="{{ endpoint|e }}" class="form-control" readonly onclick="this.select();"/>
+            {% if not https %}<div class="form-text text-danger">{{ text_not_https }}</div>{% endif %}
+          </div>
+        </div>
+        <form id="form-token" action="{{ token }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-new-token">{{ entry_token }}</label>
+            <div class="col-sm-10">
+              <p class="form-control-plaintext">{% if token_set %}{{ text_token_set }}{% else %}<strong>{{ text_token_unset }}</strong>{% endif %}</p>
+              <div class="input-group">
+                <input type="text" name="new_token" id="input-new-token" value="" class="form-control font-monospace" readonly onclick="this.select();"/>
+                <button type="submit" class="btn btn-warning"><i class="fa-solid fa-key"></i> {% if token_set %}{{ button_token_new }}{% else %}{{ button_token }}{% endif %}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_limits }}</div>
+      <div class="card-body">
+        <form id="form-module" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="status" value="0"/>
+                <input type="checkbox" name="status" value="1" id="input-status" class="form-check-input"{% if status %} checked{% endif %}/>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-max-change-pct">{{ entry_max_change_pct }}</label>
+            <div class="col-sm-10">
+              <input type="number" name="max_change_pct" id="input-max-change-pct" value="{{ max_change_pct }}" min="0" max="100" step="0.5" class="form-control"/>
+              <div class="form-text">{{ help_max_change_pct }}</div>
+              <div id="error-max-change-pct" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-read-only">{{ entry_read_only }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="read_only" value="0"/>
+                <input type="checkbox" name="read_only" value="1" id="input-read-only" class="form-check-input"{% if read_only %} checked{% endif %}/>
+              </div>
+              <div class="form-text">{{ help_read_only }}</div>
+            </div>
+          </div>
+          <div class="form-text">{{ text_tax }}</div>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-list"></i> {{ text_changes }}</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <td>{{ column_at }}</td>
+                <td>{{ column_sku }}</td>
+                <td class="text-end">{{ column_old }}</td>
+                <td class="text-end">{{ column_new }}</td>
+                <td>{{ column_reason }}</td>
+                <td>{{ column_actor }}</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for change in changes %}
+                <tr>
+                  <td>{{ change.at|e }}</td>
+                  <td>{{ change.sku|e }}</td>
+                  <td class="text-end">{{ change.old_price|e }}</td>
+                  <td class="text-end">{{ change.new_price|e }}</td>
+                  <td>{{ change.reason|e }}</td>
+                  <td>{{ change.actor|e }}</td>
+                </tr>
+              {% else %}
+                <tr><td class="text-center" colspan="6">{{ text_no_changes }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

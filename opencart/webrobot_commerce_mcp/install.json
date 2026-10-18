@@ -1,0 +1,7 @@
+{
+  "name": "WebRobot Commerce MCP",
+  "description": "Exposes the OpenCart catalog as an MCP server (Model Context Protocol) so a price-intelligence agent can read products and, within the limits you set, update prices.",
+  "version": "0.1.0",
+  "author": "WebRobot",
+  "link": "https://github.com/WebRobot-Ltd/webrobot-commerce-mcp"
+}

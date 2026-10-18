@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!-- Audit log of every price change made through the MCP. old_value/new_value are the raw values of
+         the attribute that was written (price or special_price, in store_id), so revert_price can put
+         back exactly what was there; old_price/new_price are the prices customers paid before/after. -->
+    <table name="wrcmcp_price_log" resource="default" engine="innodb" comment="WebRobot Commerce MCP price change log">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="datetime" name="created_at" nullable="false" comment="When (UTC)"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product entity ID"/>
+        <column xsi:type="varchar" name="sku" length="64" nullable="false" comment="SKU"/>
+        <column xsi:type="varchar" name="kind" length="16" nullable="false" default="update" comment="update or revert"/>
+        <column xsi:type="varchar" name="field" length="32" nullable="false" default="price" comment="Attribute written: price or special_price"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" default="0" comment="Store ID the attribute was written in"/>
+        <column xsi:type="decimal" name="old_value" scale="6" precision="20" nullable="true" comment="Attribute value before"/>
+        <column xsi:type="decimal" name="new_value" scale="6" precision="20" nullable="true" comment="Attribute value after"/>
+        <column xsi:type="decimal" name="old_price" scale="6" precision="20" nullable="true" comment="Price customers paid before"/>
+        <column xsi:type="decimal" name="new_price" scale="6" precision="20" nullable="true" comment="Price customers pay after"/>
+        <column xsi:type="text" name="reason" nullable="true" comment="Reason given by the caller"/>
+        <column xsi:type="varchar" name="actor" length="191" nullable="true" comment="Caller"/>
+        <column xsi:type="boolean" name="reverted" nullable="false" default="false" comment="Reverted"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WRCMCP_PRICE_LOG_SKU" indexType="btree">
+            <column name="sku"/>
+        </index>
+        <index referenceId="WRCMCP_PRICE_LOG_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+    </table>
+</schema>

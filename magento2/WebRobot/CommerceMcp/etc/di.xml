@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="webrobot_mcp_token" xsi:type="object">WebRobot\CommerceMcp\Console\Command\TokenCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Commands are built on every bin/magento run (even before install): keep their dependencies lazy. -->
+    <type name="WebRobot\CommerceMcp\Console\Command\TokenCommand">
+        <arguments>
+            <argument name="config" xsi:type="object">WebRobot\CommerceMcp\Model\Config\Proxy</argument>
+        </arguments>
+    </type>
+</config>

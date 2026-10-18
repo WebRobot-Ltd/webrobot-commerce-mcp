@@ -35,7 +35,17 @@ server, so a price-intelligence or dynamic-pricing agent can work with any store
 
 `sku` is the store's own identifier and the key of every other tool. `brand`, `mpn`, `ean`, `category`,
 `regularPrice` and `url` may be `null` when the store does not have them. `price` is the price the
-customer pays now (sale price when on sale). Product variations are listed as products of their own.
+customer pays now (sale price when on sale). Product variations are listed as products of their own; their
+parents (variable / configurable / combination-holding products) are not listed. A variation's `ean` and
+`mpn` are its own — never inherited from the parent — while `brand` and `category` may be.
+
+`revert_price` undoes the latest change not yet reverted: successive reverts walk back through the
+history. A revert is never itself revertible.
+
+Tax follows each platform: WooCommerce reports prices as entered in the shop (with or without tax,
+according to the shop's "prices entered with tax" setting); PrestaShop reports the price customers pay
+including tax; OpenCart and Magento report the stored amount without tax. Each plugin's README says which,
+and `update_price` takes the price in the same terms.
 
 ## Tools
 

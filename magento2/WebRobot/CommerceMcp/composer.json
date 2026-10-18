@@ -1,0 +1,26 @@
+{
+    "name": "webrobot/module-commerce-mcp",
+    "description": "Exposes the Magento 2 catalog as an MCP server (Model Context Protocol) so a price-intelligence agent can read products and, within the limits the store owner sets, update prices.",
+    "type": "magento2-module",
+    "version": "0.1.0",
+    "license": "MIT",
+    "homepage": "https://github.com/WebRobot-Ltd/webrobot-commerce-mcp",
+    "keywords": ["magento2", "mcp", "model-context-protocol", "pricing", "price-intelligence"],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0||~8.4.0",
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-catalog": "*",
+        "magento/module-catalog-inventory": "*",
+        "magento/module-config": "*",
+        "magento/module-configurable-product": "*",
+        "magento/module-eav": "*",
+        "magento/module-store": "*"
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "WebRobot\\CommerceMcp\\": ""
+        }
+    }
+}

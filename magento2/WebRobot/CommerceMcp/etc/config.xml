@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <webrobot_commercemcp>
+            <general>
+                <max_change_pct>15</max_change_pct>
+                <read_only>0</read_only>
+            </general>
+            <attributes>
+                <brand>manufacturer</brand>
+                <mpn>mpn</mpn>
+                <ean>ean</ean>
+            </attributes>
+        </webrobot_commercemcp>
+    </default>
+</config>

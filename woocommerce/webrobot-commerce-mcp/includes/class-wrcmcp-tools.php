@@ -98,14 +98,13 @@ class WRCMCP_Tools {
 	private static function product_view( WC_Product $p ) {
 		$s      = WRCMCP_Settings::get();
 		$parent = $p->get_parent_id() ? wc_get_product( $p->get_parent_id() ) : null;
-		$meta_of = function ( $key ) use ( $p, $parent ) {
+		// Identifiers (EAN, MPN) are the variation's own: never the parent's, or a matcher would pair one
+		// variant with another variant's code. Brand and category do come from the parent.
+		$meta_of = function ( $key ) use ( $p ) {
 			if ( ! $key ) {
 				return null;
 			}
 			$v = $p->get_meta( $key );
-			if ( ( '' === $v || null === $v ) && $parent ) {
-				$v = $parent->get_meta( $key );
-			}
 			return '' === $v || null === $v ? null : (string) $v;
 		};
 
@@ -198,7 +197,7 @@ class WRCMCP_Tools {
 		$p->save();
 		WRCMCP_Log::mark_reverted( $last->id );
 		$now = (float) wc_get_product( $p->get_id() )->get_price();
-		WRCMCP_Log::add( $p->get_id(), self::sku_of( $p ), $last->new_price, $now, $last->field, 'revert: ' . ( $a['reason'] ?? '' ), $actor );
+		WRCMCP_Log::add( $p->get_id(), self::sku_of( $p ), $last->new_price, $now, $last->field, 'revert: ' . ( $a['reason'] ?? '' ), $actor, true );
 		return array( 'sku' => self::sku_of( $p ), 'price' => $now );
 	}
 

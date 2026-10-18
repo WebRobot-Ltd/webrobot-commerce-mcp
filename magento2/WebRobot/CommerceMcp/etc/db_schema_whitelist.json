@@ -1,0 +1,27 @@
+{
+    "wrcmcp_price_log": {
+        "column": {
+            "id": true,
+            "created_at": true,
+            "product_id": true,
+            "sku": true,
+            "kind": true,
+            "field": true,
+            "store_id": true,
+            "old_value": true,
+            "new_value": true,
+            "old_price": true,
+            "new_price": true,
+            "reason": true,
+            "actor": true,
+            "reverted": true
+        },
+        "index": {
+            "WRCMCP_PRICE_LOG_SKU": true,
+            "WRCMCP_PRICE_LOG_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

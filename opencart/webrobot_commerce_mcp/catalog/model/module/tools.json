@@ -1,0 +1,56 @@
+[
+  {
+    "name": "list_products",
+    "description": "List the store catalog with current price, stock, EAN and manufacturer code.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string", "description": "Text filter on title, SKU or brand" },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 50 },
+        "offset": { "type": "integer", "minimum": 0, "default": 0 }
+      }
+    }
+  },
+  {
+    "name": "get_product",
+    "description": "Get one product by SKU, with its current price.",
+    "inputSchema": {
+      "type": "object",
+      "properties": { "sku": { "type": "string" } },
+      "required": ["sku"]
+    }
+  },
+  {
+    "name": "update_price",
+    "description": "Set the price customers pay for a product (store currency). Rejected beyond the maximum change configured in the store, or when the store is read-only.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sku": { "type": "string" },
+        "price": { "type": "number", "exclusiveMinimum": 0 },
+        "reason": { "type": "string", "description": "Why the price changes (stored in the audit log)" }
+      },
+      "required": ["sku", "price"]
+    }
+  },
+  {
+    "name": "revert_price",
+    "description": "Restore the price a product had before the last update_price.",
+    "inputSchema": {
+      "type": "object",
+      "properties": { "sku": { "type": "string" }, "reason": { "type": "string" } },
+      "required": ["sku"]
+    }
+  },
+  {
+    "name": "list_price_changes",
+    "description": "Audit log of price changes made through this MCP, newest first.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sku": { "type": "string" },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 200, "default": 50 }
+      }
+    }
+  }
+]

@@ -30,9 +30,14 @@ class WRCMCP_Log {
 		) $charset;" );
 	}
 
-	public static function add( $product_id, $sku, $old, $new, $field, $reason, $actor ) {
+	/**
+	 * $is_revert: a revert entry is never itself revertible, so successive reverts walk back through the
+	 * history instead of undoing each other.
+	 */
+	public static function add( $product_id, $sku, $old, $new, $field, $reason, $actor, $is_revert = false ) {
 		global $wpdb;
 		$wpdb->insert( self::table(), array(
+			'reverted'   => $is_revert ? 1 : 0,
 			'at'         => current_time( 'mysql', true ),
 			'product_id' => (int) $product_id,
 			'sku'        => (string) $sku,

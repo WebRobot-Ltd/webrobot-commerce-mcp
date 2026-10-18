@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="webrobot" translate="label" sortOrder="900">
+            <label>WebRobot</label>
+        </tab>
+        <section id="webrobot_commercemcp" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Commerce MCP</label>
+            <tab>webrobot</tab>
+            <resource>WebRobot_CommerceMcp::config</resource>
+            <group id="connection" translate="label comment" sortOrder="10" showInDefault="1">
+                <label>Connection</label>
+                <comment>Connect this store to a price-intelligence agent: paste the endpoint and the token in the app.</comment>
+                <field id="endpoint" translate="label" sortOrder="10" showInDefault="1">
+                    <label>MCP endpoint</label>
+                    <frontend_model>WebRobot\CommerceMcp\Block\Adminhtml\System\Config\Endpoint</frontend_model>
+                </field>
+                <field id="token" translate="label" sortOrder="20" showInDefault="1">
+                    <label>Token</label>
+                    <frontend_model>WebRobot\CommerceMcp\Block\Adminhtml\System\Config\TokenButton</frontend_model>
+                </field>
+            </group>
+            <group id="general" translate="label" sortOrder="20" showInDefault="1">
+                <label>Limits</label>
+                <field id="max_change_pct" translate="label comment" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Maximum change per update (%)</label>
+                    <comment>A price change larger than this is refused by the store, whatever the agent asks.</comment>
+                    <validate>required-entry validate-number validate-number-range number-range-0-100</validate>
+                </field>
+                <field id="read_only" translate="label comment" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Read-only</label>
+                    <comment>Allow reading the catalog only (no price changes).</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="attributes" translate="label" sortOrder="30" showInDefault="1">
+                <label>Product attributes</label>
+                <field id="brand" translate="label" type="text" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Brand attribute code</label>
+                </field>
+                <field id="mpn" translate="label" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Manufacturer code (MPN) attribute code</label>
+                </field>
+                <field id="ean" translate="label" type="text" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>EAN attribute code</label>
+                </field>
+            </group>
+            <group id="log" translate="label" sortOrder="40" showInDefault="1">
+                <label>Price changes (last 50)</label>
+                <field id="table" sortOrder="10" showInDefault="1">
+                    <frontend_model>WebRobot\CommerceMcp\Block\Adminhtml\System\Config\PriceLogTable</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
